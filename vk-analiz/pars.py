@@ -1,7 +1,5 @@
 import vk_api
 
-groups_name = list()
-groups_description = list()
 def user_anal(user_id):
     login = '+79185197432'
     password = 'qy.pr.wppw'
@@ -23,12 +21,4 @@ def user_anal(user_id):
     for i in groups_bufer:
         groups_description.append(i['description'])
 
-
-
-
-
-
-
-user_anal(user_id = 216824408)
-print(groups_name)
-print(groups_description)
+    return groups_name,groups_description
