@@ -16,36 +16,47 @@ def user_anal(user_id):
     vk.auth()
     vk = vk.get_api()
     user_ids = user_id
-    user_info = vk.users.get(user_id=user_ids,fields = ['bdata','quotes'])
-    print(user_info)
+    user_info = vk.users.get(user_ids = user_ids , extended = 1,fields = ['bdate','quotes'])
+    print(user_info[0])
+    user_info = user_info[0]
 
+    
 
+    try: user_bdate = user_info['bdate']
+    except: user_bdate = 0
 
-
-
+    try: user_quotes = user_info['quotes']
+    except: user_quotes = 0
 
     user_groups = vk.groups.get(user_id=user_ids,extended = 1, fields = 'description' )
 
     groups_bufer = user_groups['items']
     x=0
     groups_name = []
-    for i in groups_bufer:
-        word = str(i['name'])
-        if word[0]<='z' and word[0]>='A':
-            word = trans(word)
-        groups_name.append(word)
-        if x<25:
-            x+=1
-        else:
-            break
+    try:
+        for i in groups_bufer:
+            word = str(i['name'])
+            if word[0]<='z' and word[0]>='A':
+                word = trans(word)
+            groups_name.append(word)
+            if x<25:
+                x+=1
+            else:
+                break
+    except: groups_name = 0
+
     x = 0
     groups_description = []
-    for i in groups_bufer:
-        groups_description.append(i['description'])
-        if x<25:
-            x+=1
-        else:
-            break
-    return groups_name,groups_description
+    try:
+        for i in groups_bufer:
+            groups_description.append(i['description'])
+            if x<25:
+                x+=1
+            else:
+                break
+    except: groups_description = 0
 
-print(user_anal(216824408))
+
+    return user_bdate,groups_name,groups_description,user_quotes
+
+print(user_anal(364952181))
