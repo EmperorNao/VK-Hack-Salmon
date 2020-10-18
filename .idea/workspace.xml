@@ -4,6 +4,8 @@
     <list default="true" id="344dc5ff-a2ce-474b-ab91-4be12ccfd754" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pars.py" beforeDir="false" afterPath="$PROJECT_DIR$/pars.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vectorizer.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/vectorizer.pickle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,27 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager" selected="Python.bot">
+    <configuration name="Vectorizer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="VK-Hack-Salmon" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Vectorizer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VK-Hack-Salmon" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -38,6 +61,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pars (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="VK-Hack-Salmon" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pars.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -70,6 +114,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.bot" />
+        <item itemvalue="Python.Vectorizer" />
+        <item itemvalue="Python.pars (1)" />
         <item itemvalue="Python.pars" />
       </list>
     </recent_temporary>
@@ -129,21 +175,37 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1603004449734" />
-    <state width="1345" height="179" key="GridCell.Tab.0.bottom" timestamp="1603013844058">
+    <state width="1345" height="230" key="GridCell.Tab.0.bottom" timestamp="1603020021277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603013844058" />
-    <state width="1345" height="179" key="GridCell.Tab.0.center" timestamp="1603013844058">
+    <state width="1345" height="230" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603020021277" />
+    <state width="1345" height="230" key="GridCell.Tab.0.center" timestamp="1603020021277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603013844058" />
-    <state width="1345" height="179" key="GridCell.Tab.0.left" timestamp="1603013844058">
+    <state width="1345" height="230" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603020021277" />
+    <state width="1345" height="230" key="GridCell.Tab.0.left" timestamp="1603020021277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603013844058" />
-    <state width="1345" height="179" key="GridCell.Tab.0.right" timestamp="1603013844058">
+    <state width="1345" height="230" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603020021277" />
+    <state width="1345" height="230" key="GridCell.Tab.0.right" timestamp="1603020021277">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1345" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603013844058" />
+    <state width="1345" height="230" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603020021277" />
+    <state width="1345" height="280" key="GridCell.Tab.1.bottom" timestamp="1603015926563">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="280" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603015926563" />
+    <state width="1345" height="280" key="GridCell.Tab.1.center" timestamp="1603015926562">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="280" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1603015926562" />
+    <state width="1345" height="280" key="GridCell.Tab.1.left" timestamp="1603015926562">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="280" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1603015926562" />
+    <state width="1345" height="280" key="GridCell.Tab.1.right" timestamp="1603015926563">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="280" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1603015926563" />
   </component>
 </project>

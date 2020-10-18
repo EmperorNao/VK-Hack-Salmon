@@ -18,7 +18,7 @@ def user_anal(user_id):
     login = '+79185197432'
     password = 'qy.pr.wppw'
 
-    vk = vk_api.VkApi(login,password,token='')
+    vk = vk_api.VkApi(login, password, token='')
     vk.auth()
     vk = vk.get_api()
     user_ids = user_id
@@ -32,6 +32,7 @@ def user_anal(user_id):
 
     try:
         user_interests = user_info['interests']
+        user_interests = normal(user_interests)
     except: user_interests = 0
 
     user_groups = vk.groups.get(user_id=user_ids,extended = 1, fields = 'description' )

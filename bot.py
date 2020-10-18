@@ -10,7 +10,7 @@ import pars
 vk_session = vk_api.VkApi(token="d0dca2ad6c98fd2cea75c4e9dc844d44a1b44a55040593a6a1d0e80ab1ce639a7ab1d4b04e32269c50ee2")
 vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, group_id=199535050)
-
+letter = open('config/letter.txt','r',encoding='UTF-8')
 
 def get_connection():
 
@@ -31,6 +31,10 @@ def get_button(mode):
 
         return 'keyboard/button_assist.json'
 
+    if mode == 1:
+
+        return 'keyboard/answer'
+
     else:
 
         return 'keyboard/default.json'
@@ -42,9 +46,9 @@ def get_date(msg):
     if (date != None):
 
         diff = str(date-datetime.datetime.now())
-        t = int(diff.split()[0])
-        if t < 0:
-            date = date + datetime.timedelta(days = abs(t))
+        #t = int(diff.split()[0])
+        #if t < 0:
+            #date = date + datetime.timedelta(days = abs(t))
         return date
 
     else :
@@ -55,22 +59,27 @@ def get_date(msg):
 # send message to user_id in vk with button mode
 def vk_send(user_id, message, mode):
 
-    #keyboard = get_button(mode)
+   # keyboard = get_button(mode)
 
     if message == ' ':
 
         vk.messages.send(peer_id=user_id,
-                         random_id=get_random_id())
+                         random_id=get_random_id())#keyboard=keyboard)
 
     else:
 
         vk.messages.send(peer_id=user_id,
                          message=message,
-                         random_id=get_random_id())
+                         random_id=get_random_id())#,keyboard=keyboard)
 
 while True:
 
     for event in longpoll.listen():
+
+        if event.type == VkBotEventType.GROUP_JOIN:
+
+            user_id = event.obj.user_id
+            vk_send(user_id, letter.read(), 0)
 
         if event.type == VkBotEventType.MESSAGE_NEW:
 
@@ -79,9 +88,17 @@ while True:
                 user_id = event.object.message['peer_id']
                 message = event.message['text']
 
+                if message.lower() == 'помощь':
+
+                    vk_send(user_id, "Помогу", 0)
+
+
                 if message.lower() == "привет":
 
                     vk_send(user_id, "Привет!", 0)
+
+                if message.lower() == " ":
+                    _ = 42
 
                 else:
 
@@ -97,13 +114,27 @@ while True:
                     if (bdate) :
 
                         year = bdate.split('.')[2]
-                        age = datetime.datetime.now().year - year
+                        age = datetime.datetime.now().year - int(year)
 
                     else:
                         age = 100
 
-                    print(age)
-                    sql = "SELECT * from name where Agerestr <= %s and start_date < %s" # добавить текущую дату
-                    cursor
+                    cursor = connection.cursor()
 
-                    
+                    sql = "SELECT name, description, content, tags from name where Agerestr <= %s and start_time = %s" # добавить текущую дату
+                    cursor.execute(sql, (age, date))
+
+                    t = 0
+                    for row in cursor:
+
+                        if (t < 3):
+
+                            vk_send(user_id, row['name'] + '\n\n' + row['description'] + '\n\n' + row['content'] + '\n_________________________________________\n', 0)
+                            print(row['name'] + '\n\n' + row['description'] + '\n\n' + row['content'] + '\n_________________________________________\n')
+                            t += 1
+
+                        else :
+
+                            break
+
+                    cursor.close()
