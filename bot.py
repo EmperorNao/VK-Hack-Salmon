@@ -25,12 +25,17 @@ def get_button(mode):
 
 def get_date(msg):
 
-    return dateparser.parse(msg)
+    date = dateparser.parse(msg)
+    diff = str(date-datetime.datetime.now())
+    t = int(diff.split()[0])
+    if t < 0:
+        date = date + datetime.timedelta(days = abs(t))
+    return date
 
 # send message to user_id in vk with button mode
 def vk_send(user_id, message, mode):
 
-    # keyboard = get_button(mode)
+    #keyboard = get_button(mode)
 
     if message == ' ':
 
@@ -54,9 +59,9 @@ while True:
                 user_id = event.object.message['peer_id']
                 message = event.message['text']
 
-                if message.lower() == "помощь":
+                if message.lower() == "привет":
 
-                    vk_send(user_id, "ТЫ", -1)
+                    vk_send(user_id, "Привет!", 0)
 
                 else:
 
@@ -66,7 +71,7 @@ while True:
 
                     print(bdate)
                     if (bdate) :
-                        age = (datetime.datetime.now() - datetime.datetime.strptime(bdate,)).total_seconds()/3600/24/365
+                        age = (datetime.datetime.now() - datetime.datetime.strptime(bdate,"")).total_seconds()/3600/24/365
 
                     else:
                         age = 100
