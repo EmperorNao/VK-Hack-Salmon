@@ -3,10 +3,29 @@ from sklearn.feature_extraction import DictVectorizer
 import pandas as pd
 import numpy as np
 import scipy
+import pymysql
+import pickle
 
-# get texts from bd
-f = open("for_vladuk.txt", encoding='utf-8')
-line = f.readlines()
+# connect to db
+def get_connection():
+
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='qy.pr.wppw',
+                                 db='vk_hack',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+
+    return connection
+connection = get_connection()
+cursor = connection.cursor()
+
+sql = "SELECT content from name"
+cursor.execute(sql)
+
+line = []
+for row in cursor:
+    line.append(row['content'])
 
 d = {'text':line}
 texts = pd.DataFrame(d)
@@ -23,57 +42,29 @@ for i in range(0, len(texts.text)):
 
     texts.text[i] = t_str
 
-
 vectorizer = TfidfVectorizer()
 words_train = vectorizer.fit_transform(texts.text) #тупая матрица с циферками
 words = vectorizer.get_feature_names()
 words_train_densed = words_train.todense() # матрица
-enc = DictVectorizer()
+pickle.dump(vectorizer, open('vectorizer.pickle', 'wb'))
 n = 10
 
+for i in range(0,len(words_train_densed)):
 
-for row in words_train_densed:
-
+    row = words_train_densed[i]
 
     row = np.array(row)
     indices = (-row).argsort()[:n]
     indices = indices[0][:n]
 
-
     most_values_words = [words[i] for i in indices]
+    sql = "UPDATE name set tags = %s where content = %s"
+    s = ""
+    for word in most_values_words:
+
+        s += word + ','
+
     print(most_values_words)
+    cursor.execute(sql, (s, line[i]))
 
-
-
-
-
-
-'''
-arr_sq={}
-for i in range(0,len(texts.text)):
-    seq = texts.text[i].split()
-    for j in range(0, len(seq)):
-
-        arr_sq[seq[j]] = numbers[i,j]
-
-
-arr_keys = []
-arr_values = []
-for key in arr_sq.keys():
-
-    arr_keys.append(key)
-    arr_values.append(arr_sq[key])
-
-n = 10
-arr_values = np.reshape(arr_values, -1)
-print(arr_values)
-print(arr_keys)
-indices = (-arr_values).argsort()[:n]
-
-most_values_words = [arr_keys[i] for i in indices]
-
-print(most_values_words)
-
-# print(words_test)
-
-'''
+cursor.close()
