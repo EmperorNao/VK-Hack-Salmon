@@ -56,15 +56,17 @@ while True:
 
                 else:
 
-                    date = get_date(msg)
+                    date = get_date(message)
 
                     bdate, groups_name, interesting = user_anal(user_id)
 
                     if (bdate) :
-                        age = (datetime.datetime.now() - bdate).total_seconds()/3600/
+                        age = (datetime.datetime.now() - bdate).total_seconds()/3600/24/365
 
                     else:
                         age = 100
+
+                    print(age)
 
 
 

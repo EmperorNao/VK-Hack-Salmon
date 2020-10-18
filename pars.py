@@ -1,11 +1,17 @@
 import vk_api
 from googletrans import Translator
-
-
+import re
 def trans(en_word):
     translator = Translator()
     word = (translator.translate(en_word, dest='ru')).text
     return word
+
+
+def normal(gr_for_an):
+    for i in range(len(gr_for_an)):
+        gr_for_an[i] = gr_for_an[i].lower()
+        gr_for_an[i] = re.sub('[^а-я0-9 ]', '', gr_for_an[i])
+    return (gr_for_an)
 
 
 def user_anal(user_id):
@@ -44,16 +50,25 @@ def user_anal(user_id):
                 break
     except: groups_name = 0
 
-    x = 0
-    groups_description = []
-    try:
-        for i in groups_bufer:
-            groups_description.append(i['description'])
-            if x<25:
-                x+=1
-            else:
-                break
-    except: groups_description = 0
+    #x = 0
+    #groups_description = []
+    #try:
+    #   for i in groups_bufer:
+    #       groups_description.append(i['description'])
+    #       if x<25:
+    #           x+=1
+    #       else:
+    #           break
+    #except: groups_description = 0
+    groups_name = normal(groups_name)
+
+    return user_bdate,groups_name,user_quotes
 
 
+
+<<<<<<< HEAD:pars.py
     return user_bdate,groups_name,groups_description,user_quotes
+=======
+
+print(user_anal(364952181))
+>>>>>>> vk_analiz:vk-analiz/pars.py
