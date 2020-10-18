@@ -47,3 +47,4 @@ def analyse_vk_profile(user_id):
     return most_values_words
 
 
+

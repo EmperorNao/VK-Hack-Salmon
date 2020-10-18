@@ -39,6 +39,7 @@ for i in data:
         is_free = 1
 
     if data_json.get('schedules') != []:
+
         if data_json.get('schedules')[0].get('venue').get('place') != None:
             place = data_json.get('schedules')[0].get('venue').get('place').get('name')
         else:

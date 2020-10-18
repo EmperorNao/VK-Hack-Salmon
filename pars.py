@@ -71,5 +71,3 @@ def user_anal(user_id):
 
 
     return user_bdate,groups_name,user_interests
-
-print(user_anal(8013480))

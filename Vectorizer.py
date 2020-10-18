@@ -64,7 +64,6 @@ for i in range(0,len(words_train_densed)):
 
         s += word + ','
 
-    print(most_values_words)
     cursor.execute(sql, (s, line[i]))
 
 cursor.close()

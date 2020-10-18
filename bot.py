@@ -10,17 +10,21 @@ import vk_anal
 import lemmatizer
 import numpy as np
 
+token_id = open("token_id.txt",'r',encoding='UTF-8').readlines()
+token = token_id[0]
+group_id = token_id[1]
 vk_session = vk_api.VkApi(token="d0dca2ad6c98fd2cea75c4e9dc844d44a1b44a55040593a6a1d0e80ab1ce639a7ab1d4b04e32269c50ee2")
 vk = vk_session.get_api()
-longpoll = VkBotLongPoll(vk_session, group_id=199535050)
+longpoll = VkBotLongPoll(vk_session, group_id=group_id)
 letter = open('config/letter.txt','r',encoding='UTF-8')
 help = open('config/help.txt', 'r', encoding='UTF-8')
+db = open("db.txt",'r', encoding='UTF-8').readlines()
 
 def get_connection():
 
     connection = pymysql.connect(host='localhost',
                                  user='root',
-                                 password='qy.pr.wppw',
+                                 password=db[0],
                                  db='vk_hack',
                                  charset='utf8mb4',
                                  cursorclass=pymysql.cursors.DictCursor)
