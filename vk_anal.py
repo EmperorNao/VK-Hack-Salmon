@@ -12,18 +12,18 @@ import pickle
 def analyse_vk_profile(user_id):
 
     itog_info = []
-    all_info = user_anal(user_id
+    all_info = user_anal(user_id)
     if all_info[2] == 0:
         itog_info.append(' '.join(all_info[1]))
         itog_info.append('')
     else:
         itog_info.append(' '.join(all_info[1]))
         itog_info.append(' '.join(all_info[2].split(',')))
-    gavno =[]
-    gavno.append(itog_info[0] +' '+ itog_info[1])
+    g =[]
+    g.append(itog_info[0] +' '+ itog_info[1])
 
 
-    d = {'text':gavno}
+    d = {'text':g}
     texts = pd.DataFrame(d,index = [1])
     vect = pickle.load(open('vectorizer.pickle', 'rb'))
     text = vect.transform(itog_info)
@@ -45,6 +45,5 @@ def analyse_vk_profile(user_id):
         s += word + ','
 
     return most_values_words
-
 
 

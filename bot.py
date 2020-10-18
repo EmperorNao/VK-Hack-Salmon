@@ -6,6 +6,9 @@ import datetime
 import pymysql
 import dateparser
 import pars
+import vk_anal
+import lemmatizer
+import numpy as np
 
 vk_session = vk_api.VkApi(token="d0dca2ad6c98fd2cea75c4e9dc844d44a1b44a55040593a6a1d0e80ab1ce639a7ab1d4b04e32269c50ee2")
 vk = vk_session.get_api()
@@ -75,6 +78,8 @@ def vk_send(user_id, message, mode):
 
 while True:
 
+    was_sended = []
+
     for event in longpoll.listen():
 
         if event.type == VkBotEventType.GROUP_JOIN:
@@ -95,9 +100,17 @@ while True:
 
                 else:
 
+                    if message.lower() == 'поменять':
+
+                        for i in was_sended:
+
+                            if i[0] == user_id:
+
+                                date = i[2]
+
                     date = get_date(message)
 
-                    if (date == None) :
+                    if (date == None):
 
                         vk_send(user_id,"Я получил не корректную дату! "
                                         "Если возникли вопросы с форматом, напиши 'помощь'",0)
@@ -118,18 +131,60 @@ while True:
                           " <= %s and start_time BETWEEN %s and %s" # добавить текущую дату
                     cursor.execute(sql, (age, date, date + datetime.timedelta(days=1)))
 
-                    t = 0
+                    most_words = vk_anal.analyse_vk_profile(user_id)
+
+                    arr = []
+                    cursor_t = []
                     for row in cursor:
 
-                        if (t < 3):
+                        cursor_t.append(row)
+                        if (row['tags'] is not None):
+                            arr.append(lemmatizer.cmp_tags(" ".join(most_words), row['tags']))
+                        else:
+                            arr.append(0.05)
 
+
+                    n = 30
+                    if (n > len(arr)):
+
+                        n = len(arr) - 1
+
+                    arr = np.array(arr)
+                    indices = (-arr).argsort()[:9]
+                    indices = indices[:n]
+
+                    best = arr[indices]
+                    f = False
+                    t = 0
+                    for i in range(0, len(was_sended)):
+
+                        if was_sended[i][0] == user_id:
+
+                            t = was_sended[i][1]
+                            was_sended[i][1] += 3
+
+                            f = True
+
+                    if not f:
+
+                        t = 0
+                        was_sended.append([user_id, 0, date])
+
+                    start = t
+                    i = 0
+                    for row in cursor_t:
+
+                        if ((t < len(indices)) and (i == indices[t])) and (t < start + i + 1):
+
+                            i += 1
+                            t += 1
                             vk_send(user_id, 'Название мероприятия: ' + row['name'] +
                                     '\n\n' + 'Описание мероприятия: ' + row['description'] +
-                                    '\n\n' +  row['content'] + '\n_________________________________________\n'+
-                                    '\n\n' + 'Минимальная стоимость билета: ' + str(row['mean_price']) + " руб."+
+                                    '\n\n' +  row['content'] +
+                                    '\n\n' + 'Минимальная стоимость билета: ' + str(row['mean_price']) + " руб." +
                                     '\n\n' + 'Время начала мероприятия: ' + str(row['start_time']) +
-                                    '\n\n' + 'Место проведения: ' + row['place'], 0)
-                            t += 1
+                                    '\n\n' + 'Место проведения: ' + row['place'] +
+                                    '\n_________________________________________\n', 0)
 
                         else:
 
