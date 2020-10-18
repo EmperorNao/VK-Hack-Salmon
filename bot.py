@@ -12,6 +12,19 @@ vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, group_id=199535050)
 
 
+def get_connection():
+
+    connection = pymysql.connect(host='localhost',
+                                 user='root',
+                                 password='qy.pr.wppw',
+                                 db='vk_hack',
+                                 charset='utf8mb4',
+                                 cursorclass=pymysql.cursors.DictCursor)
+
+    return connection
+connection = get_connection()
+
+
 def get_button(mode):
 
     if mode == 0:
@@ -26,11 +39,18 @@ def get_button(mode):
 def get_date(msg):
 
     date = dateparser.parse(msg)
-    diff = str(date-datetime.datetime.now())
-    t = int(diff.split()[0])
-    if t < 0:
-        date = date + datetime.timedelta(days = abs(t))
-    return date
+    if (date != None):
+
+        diff = str(date-datetime.datetime.now())
+        t = int(diff.split()[0])
+        if t < 0:
+            date = date + datetime.timedelta(days = abs(t))
+        return date
+
+    else :
+
+        return None
+
 
 # send message to user_id in vk with button mode
 def vk_send(user_id, message, mode):
@@ -67,17 +87,23 @@ while True:
 
                     date = get_date(message)
 
+                    if (date == None) :
+
+                        vk_send(user_id,"Не понимаю!",0)
+                        continue
+
                     bdate, groups_name, interesting = pars.user_anal(user_id)
 
-                    print(bdate)
                     if (bdate) :
-                        age = (datetime.datetime.now() - datetime.datetime.strptime(bdate,"")).total_seconds()/3600/24/365
+
+                        year = bdate.split('.')[2]
+                        age = datetime.datetime.now().year - year
 
                     else:
                         age = 100
 
                     print(age)
-
-                    sql = "SELECT * from name where Agerestr <= %s"
+                    sql = "SELECT * from name where Agerestr <= %s and start_date < %s" # добавить текущую дату
+                    cursor
 
                     
