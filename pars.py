@@ -15,8 +15,9 @@ def normal(gr_for_an):
 
 
 def user_anal(user_id):
-    login = '+79185197432'
-    password = 'qy.pr.wppw'
+    t = open("logpass.txt","r",encoding = "UTF-8").readlines()
+    login, password = t[0], t[1]
+
 
     vk = vk_api.VkApi(login, password, token='')
     vk.auth()
@@ -63,7 +64,12 @@ def user_anal(user_id):
     #           break
     #except: groups_description = 0
 
+    print("Не нормализованные данные: ",groups_name)
     groups_name = normal(groups_name)
+    print("Нормализованный данные: ", groups_name)
+
 
 
     return user_bdate,groups_name,user_interests
+
+print(user_anal(8013480))
