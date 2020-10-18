@@ -25,14 +25,13 @@ def user_anal(user_id):
     user_info = vk.users.get(user_ids = user_ids , extended = 1,fields = ['bdate','interests'])
     user_info = user_info[0]
 
-    
-
     try:
         user_bdate = user_info['bdate']
         if len(user_bdate.split('.')) <3: user_bdate = 0
     except: user_bdate = 0
 
-    try: user_interests = user_info['interests']
+    try:
+        user_interests = user_info['interests']
     except: user_interests = 0
 
     user_groups = vk.groups.get(user_id=user_ids,extended = 1, fields = 'description' )
@@ -64,7 +63,6 @@ def user_anal(user_id):
     #except: groups_description = 0
 
     groups_name = normal(groups_name)
-    
+
+
     return user_bdate,groups_name,user_interests
-
-
