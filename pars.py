@@ -64,11 +64,3 @@ def user_anal(user_id):
 
     return user_bdate,groups_name,user_quotes
 
-
-
-<<<<<<< HEAD:pars.py
-    return user_bdate,groups_name,groups_description,user_quotes
-=======
-
-print(user_anal(364952181))
->>>>>>> vk_analiz:vk-analiz/pars.py
