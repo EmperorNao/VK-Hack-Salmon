@@ -5,10 +5,9 @@
       {
         "action": {
           "type": "text",
-          "label": "Найти собеседника"
+          "label": "Помощь"
         },
-        "color": "primary"
+        "color": "positive"
       }
-    ]
-  ]
+    ],
 }

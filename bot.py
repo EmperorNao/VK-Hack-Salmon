@@ -16,7 +16,11 @@ def get_button(mode):
 
     if mode == 0:
 
-        return 'keyboard/start.json'
+        return 'keyboard/button_assist.json'
+
+    else:
+
+        return 'keyboard/default.json'
 
 
 def get_date(msg):
@@ -58,18 +62,16 @@ while True:
 
                     date = get_date(message)
 
-                    bdate, groups_name, interesting = user_anal(user_id)
+                    bdate, groups_name, interesting = pars.user_anal(user_id)
 
+                    print(bdate)
                     if (bdate) :
-                        age = (datetime.datetime.now() - bdate).total_seconds()/3600/24/365
+                        age = (datetime.datetime.now() - datetime.datetime.strptime(bdate,)).total_seconds()/3600/24/365
 
                     else:
                         age = 100
 
                     print(age)
-
-
-
 
                     sql = "SELECT * from name where Agerestr <= %s"
 
