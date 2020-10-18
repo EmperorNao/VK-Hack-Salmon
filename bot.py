@@ -13,7 +13,7 @@ import numpy as np
 token_id = open("token_id.txt",'r',encoding='UTF-8').readlines()
 token = token_id[0]
 group_id = token_id[1]
-vk_session = vk_api.VkApi(token="d0dca2ad6c98fd2cea75c4e9dc844d44a1b44a55040593a6a1d0e80ab1ce639a7ab1d4b04e32269c50ee2")
+vk_session = vk_api.VkApi(token=token[:len(token) - 1])
 vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, group_id=group_id)
 letter = open('config/letter.txt','r',encoding='UTF-8')
