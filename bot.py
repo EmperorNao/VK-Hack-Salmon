@@ -11,6 +11,7 @@ vk_session = vk_api.VkApi(token="d0dca2ad6c98fd2cea75c4e9dc844d44a1b44a55040593a
 vk = vk_session.get_api()
 longpoll = VkBotLongPoll(vk_session, group_id=199535050)
 letter = open('config/letter.txt','r',encoding='UTF-8')
+help = open('config/help.txt', 'r', encoding='UTF-8')
 
 def get_connection():
 
@@ -90,15 +91,7 @@ while True:
 
                 if message.lower() == 'помощь':
 
-                    vk_send(user_id, "Помогу", 0)
-
-
-                if message.lower() == "привет":
-
-                    vk_send(user_id, "Привет!", 0)
-
-                if message.lower() == " ":
-                    _ = 42
+                    vk_send(user_id, help.read(), 0)
 
                 else:
 
@@ -106,7 +99,8 @@ while True:
 
                     if (date == None) :
 
-                        vk_send(user_id,"Не понимаю!",0)
+                        vk_send(user_id,"Я получил не корректную дату! "
+                                        "Если возникли вопросы с форматом, напиши 'помощь'",0)
                         continue
 
                     bdate, groups_name, interesting = pars.user_anal(user_id)
@@ -120,20 +114,24 @@ while True:
                         age = 100
 
                     cursor = connection.cursor()
-
-                    sql = "SELECT name, description, content, tags from name where Agerestr <= %s and start_time = %s" # добавить текущую дату
-                    cursor.execute(sql, (age, date))
+                    sql = "SELECT name, description, content, tags,mean_price,start_time, place from name where Agerestr" \
+                          " <= %s and start_time BETWEEN %s and %s" # добавить текущую дату
+                    cursor.execute(sql, (age, date, date + datetime.timedelta(days=1)))
 
                     t = 0
                     for row in cursor:
 
                         if (t < 3):
 
-                            vk_send(user_id, row['name'] + '\n\n' + row['description'] + '\n\n' + row['content'] + '\n_________________________________________\n', 0)
-                            print(row['name'] + '\n\n' + row['description'] + '\n\n' + row['content'] + '\n_________________________________________\n')
+                            vk_send(user_id, 'Название мероприятия: ' + row['name'] +
+                                    '\n\n' + 'Описание мероприятия: ' + row['description'] +
+                                    '\n\n' +  row['content'] + '\n_________________________________________\n'+
+                                    '\n\n' + 'Минимальная стоимость билета: ' + str(row['mean_price']) + " руб."+
+                                    '\n\n' + 'Время начала мероприятия: ' + str(row['start_time']) +
+                                    '\n\n' + 'Место проведения: ' + row['place'], 0)
                             t += 1
 
-                        else :
+                        else:
 
                             break
 

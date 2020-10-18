@@ -4,7 +4,7 @@ from datetime import datetime
 import pymysql
 path = 'events.txt'
 data = open(path,'r', encoding="UTF-8")
-f = open('for_vladuk.txt','w')
+
 s = 0
 # connect to db
 def get_connection():
